@@ -10,7 +10,9 @@ Let the sample space be ** \( \mathcal{X} = [0,1] \) ** and consider a **binary 
 We define a hypothesis class of disjoint intervals as follows:
 
 Let \( I \) be a set of \( k \) disjoint intervals:
-$$ I = \{[l_1, u_1], [l_2, u_2], ..., [l_k, u_k]\} $$
+
+$ I = \{[l_1, u_1], [l_2, u_2], ..., [l_k, u_k]\} $
+
 where the intervals are ordered such that:
 \[ 0 \leq l_1 \leq u_1 \leq l_2 \leq u_2 \leq ... \leq u_k \leq 1 \]
 
