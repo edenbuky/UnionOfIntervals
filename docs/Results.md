@@ -26,7 +26,49 @@ where the points \( x_i \) are sorted in increasing order: \( 0 \leq x_1 < x_2 <
 
 ---
 
-## **Experimental Analysis and Results**
+## **(a) Hypothesis Selection with Minimum Error**
 
-_(The following sections will include the experimental results and analysis from the implementation of the algorithm. Please provide the next question so I can continue adding the details!)_
+### **Problem Statement**
+We assume the true distribution \( P[x, y] = P[y|x] \cdot P[x] \) is given as follows:
+- \( x \) is uniformly distributed over \([0,1]\).
+- The conditional probability \( P[y=1|x] \) is defined as:
+  \[
+  P[y=1|x] = \begin{cases} 
+  0.8, & \text{if } x \in [0,0.2] \cup [0.4,0.6] \cup [0.8,1] \\
+  0.1, & \text{if } x \in (0.2,0.4) \cup (0.6,0.8)
+  \end{cases}
+  \]
+- Since \( P[y=0|x] = 1 - P[y=1|x] \), we can compute the exact error \( e_P(h) \) for any hypothesis \( h \in \mathcal{H}_k \).
+
+### **Solution**
+For \( h \in \mathcal{H}_{10} \), the error is computed as:
+\[
+  e_P(h) = \mathbb{E}_{(X,Y) \sim P} \left[ \Delta_{zo}(h(X),Y) \right] = \sum_{(X,Y) \in \mathcal{X} \times \mathcal{Y}} P(X,Y) \Delta_{zo}(h(X),Y)
+\]
+Since \( X \) is uniformly distributed over \([0,1]\), we use \( P(X,Y) = P(Y|X)P(X) \) to rewrite:
+\[
+  e_P(h) = \int_0^1 P[Y=1|x] \Delta_{zo}(h(X),1)dx + \int_0^1 P[Y=0|x] \Delta_{zo}(h(X),0)dx
+\]
+We focus only on cases where \( \Delta_{zo} \neq 0 \), meaning incorrect predictions:
+- \( I_1 \): Intervals where \( h(X)=1 \) and \( P(Y=1|X) = 0.8 \) (no error, ignored)
+- \( I_2 \): Intervals where \( h(X)=1 \) and \( P(Y=1|X) = 0.1 \) (error occurs)
+- \( I_3 \): Intervals where \( h(X)=0 \) and \( P(Y=1|X) = 0.8 \) (error occurs)
+- \( I_4 \): Intervals where \( h(X)=0 \) and \( P(Y=1|X) = 0.1 \) (no error, ignored)
+
+Thus, the expected error simplifies to:
+\[
+  e_P(h) = \int_{I_2} 0.1dx + \int_{I_3} (1-0.8)dx = 0.1|I_2| + 0.2|I_3|
+\]
+To minimize error, we aim to keep \( I_2 \) and \( I_3 \) as small as possible. One approach is to introduce a small unit \( \varepsilon > 0 \) at the interval edges, ensuring exactly 10 disjoint segments:
+\[
+  \min_{n_1, n_2 \in \mathbb{N}} \{ 0.1 n_1 \cdot \varepsilon + 0.2 n_2 \cdot \varepsilon \}
+\]
+where:
+- \( n_1 \) is the number of intervals added to the complement of \([0,0.2] \cup [0.4,0.6] \cup [0.8,1]\)
+- \( n_2 \) is the number of intervals removed from \([0,0.2] \cup [0.4,0.6] \cup [0.8,1]\)
+
+This ensures the best hypothesis \( h \in \mathcal{H}_{10} \) has the smallest possible classification error.
+
+---
+
 
