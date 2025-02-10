@@ -4,7 +4,7 @@
 
 In this assignment, we study the hypothesis class of a **finite union of disjoint intervals** and analyze the properties of the **Empirical Risk Minimization (ERM) algorithm** for this class.
 
-Let the sample space be ** \( \mathcal{X} = [0,1] \) ** and consider a **binary classification problem**, where \( \mathcal{Y} = \{0,1\} \). We aim to learn using a hypothesis class consisting of ** \( k \) disjoint intervals**.
+Let the sample space be **\( \mathcal{X} = [0,1] \)** and consider a **binary classification problem**, where \( \mathcal{Y} = \{0,1\} \). We aim to learn using a hypothesis class consisting of **\( k \) disjoint intervals**.
 
 ### **Mathematical Formulation**
 We define a hypothesis class of disjoint intervals as follows:
@@ -26,48 +26,20 @@ where the points \( x_i \) are sorted in increasing order: \( 0 \leq x_1 < x_2 <
 
 ---
 
-## **(a) Hypothesis Selection with Minimum Error**
+## **(b) Empirical and True Error Analysis**
 
 ### **Problem Statement**
-We assume the true distribution \( P[x, y] = P[y|x] \cdot P[x] \) is given as follows:
-- \( x \) is uniformly distributed over \([0,1]\).
-- The conditional probability \( P[y=1|x] \) is defined as:
-  \[
-  P[y=1|x] = \begin{cases} 
-  0.8, & \text{if } x \in [0,0.2] \cup [0.4,0.6] \cup [0.8,1] \\
-  0.1, & \text{if } x \in (0.2,0.4) \cup (0.6,0.8)
-  \end{cases}
-  \]
-- Since \( P[y=0|x] = 1 - P[y=1|x] \), we can compute the exact error \( e_P(h) \) for any hypothesis \( h \in \mathcal{H}_k \).
+We implement a function that calculates the true error \( e_P(h_I) \) for a given list of intervals \( I \). Then, for \( k = 3 \) and various values of \( n \) (10, 15, 20, ..., 100), we conduct the following experiment \( T = 100 \) times:
+1. Draw a sample of size \( n \) and run the **ERM algorithm**.
+2. Calculate the **empirical error** for the returned hypothesis.
+3. Calculate the **true error** for the returned hypothesis.
+4. Plot the empirical and true errors, averaged across the \( T \) runs, as a function of \( n \).
+5. Discuss the results: Do the empirical and true errors decrease or increase with \( n \)? Why?
 
-### **Solution**
-For \( h \in \mathcal{H}_{10} \), the error is computed as:
-\[
-  e_P(h) = \mathbb{E}_{(X,Y) \sim P} \left[ \Delta_{zo}(h(X),Y) \right] = \sum_{(X,Y) \in \mathcal{X} \times \mathcal{Y}} P(X,Y) \Delta_{zo}(h(X),Y)
-\]
-Since \( X \) is uniformly distributed over \([0,1]\), we use \( P(X,Y) = P(Y|X)P(X) \) to rewrite:
-\[
-  e_P(h) = \int_0^1 P[Y=1|x] \Delta_{zo}(h(X),1)dx + \int_0^1 P[Y=0|x] \Delta_{zo}(h(X),0)dx
-\]
-We focus only on cases where \( \Delta_{zo} \neq 0 \), meaning incorrect predictions:
-- \( I_1 \): Intervals where \( h(X)=1 \) and \( P(Y=1|X) = 0.8 \) (no error, ignored)
-- \( I_2 \): Intervals where \( h(X)=1 \) and \( P(Y=1|X) = 0.1 \) (error occurs)
-- \( I_3 \): Intervals where \( h(X)=0 \) and \( P(Y=1|X) = 0.8 \) (error occurs)
-- \( I_4 \): Intervals where \( h(X)=0 \) and \( P(Y=1|X) = 0.1 \) (no error, ignored)
-
-Thus, the expected error simplifies to:
-\[
-  e_P(h) = \int_{I_2} 0.1dx + \int_{I_3} (1-0.8)dx = 0.1|I_2| + 0.2|I_3|
-\]
-To minimize error, we aim to keep \( I_2 \) and \( I_3 \) as small as possible. One approach is to introduce a small unit \( \varepsilon > 0 \) at the interval edges, ensuring exactly 10 disjoint segments:
-\[
-  \min_{n_1, n_2 \in \mathbb{N}} \{ 0.1 n_1 \cdot \varepsilon + 0.2 n_2 \cdot \varepsilon \}
-\]
-where:
-- \( n_1 \) is the number of intervals added to the complement of \([0,0.2] \cup [0.4,0.6] \cup [0.8,1]\)
-- \( n_2 \) is the number of intervals removed from \([0,0.2] \cup [0.4,0.6] \cup [0.8,1]\)
-
-This ensures the best hypothesis \( h \in \mathcal{H}_{10} \) has the smallest possible classification error.
+### **Solution & Analysis**
+- The **empirical error** increases as \( n \) grows, but its **rate of increase slows down**, which aligns with theoretical expectations. A **larger sample size provides more information about the true distribution**, allowing for a better hypothesis selection.
+- The **true error remains relatively constant**, with slight fluctuations. This behavior is expected because the true error is an inherent property of the hypothesis and the true distribution \( P \), which do not change with sample size.
+- Overall, we observe the expected trend where **as \( n \) increases, the empirical and true errors converge**, demonstrating the consistency of the ERM algorithm.
 
 ---
 
