@@ -4,21 +4,22 @@
 
 In this assignment, we study the hypothesis class of a **finite union of disjoint intervals** and analyze the properties of the **Empirical Risk Minimization (ERM) algorithm** for this class.
 
-Let the sample space be ' \mathcal{X} = [0,1] ' and consider a **binary classification problem**, where \( \mathcal{Y} = \{0,1\} \). We aim to learn using a hypothesis class consisting of **\( k \) disjoint intervals**.
+Let the sample space be 𝒳 = [0,1] and consider a **binary classification problem**, where 𝒴 = \{0,1\} . We aim to learn using a hypothesis class consisting of **𝒌 disjoint intervals**.
 
 ### **Mathematical Formulation**
 We define a hypothesis class of disjoint intervals as follows:
 
-Let \( I \) be a set of \( k \) disjoint intervals:
-\[ I = \{[l_1, u_1], [l_2, u_2], ..., [l_k, u_k]\} \]
+Let 𝐼 be a set of  𝑘 disjoint intervals:
+𝐼 = \{[𝓁₁, 𝓊₁], [𝓁₂, 𝓊₂], ..., [𝓁ₖ, 𝓊ₖ]\}
 where the intervals are ordered such that:
-\[ 0 \leq l_1 \leq u_1 \leq l_2 \leq u_2 \leq ... \leq u_k \leq 1 \]
+0 ≤ 𝓁₁ ≤ 𝓊₁ ≤ 𝓁₂ ≤ 𝓊₂ ≤ ... ≤ 𝓊ₖ ≤ 1
 
-For each such set \( I \), define the corresponding hypothesis function:
-\[ h_I(x) = \begin{cases} 1, & \text{if } x \in [l_1, u_1] \cup \dots \cup [l_k, u_k] \\ 0, & \text{otherwise} \end{cases} \]
+For each such set 𝐼, define the corresponding hypothesis function:
+\[ hₗ(x) = \begin{cases} 1, & \text{if } x \in [l_1, u_1] \cup \dots \cup [l_k, u_k] \\ 0, & \text{otherwise} \end{cases} \]
+<img width="775" alt="Screenshot 2025-02-11 at 15 04 49" src="https://github.com/user-attachments/assets/38b17e99-462b-470d-beb7-5e0ccae55196" />
 
 The hypothesis class \( \mathcal{H}_k \) consists of all possible such hypotheses:
-\[ \mathcal{H}_k = \{ h_I | I = \{[l_1, u_1], ..., [l_k, u_k]\}, 0 \leq l_1 \leq u_1 \leq l_2 \leq u_2 \leq ... \leq u_k \leq 1 \} \]
+ℋₖ = \{ hₗ | I = \{[𝓁₁, 𝓊₁], ..., [𝓁ₖ, 𝓊ₖ]\}, 0 ≤ 𝓁₁ ≤ 𝓊₁ ≤ 𝓁₂ ≤ 𝓊₂ ≤ ... ≤ 𝓊ₖ ≤ 1 \}
 
 We are given a labeled sample of size \( n \):
 \[ (x_1, y_1), ..., (x_n, y_n) \]
