@@ -4,7 +4,7 @@
 
 In this assignment, we study the hypothesis class of a **finite union of disjoint intervals** and analyze the properties of the **Empirical Risk Minimization (ERM) algorithm** for this class.
 
-Let the sample space be 𝒳 = [0,1] and consider a **binary classification problem**, where 𝒴 = \{0,1\} . We aim to learn using a hypothesis class consisting of **𝒌 disjoint intervals**.
+Let the sample space be 𝒳 = [𝟢,𝟣] and consider a **binary classification problem**, where 𝒴 = \{𝟢,𝟣\} . We aim to learn using a hypothesis class consisting of **𝒌 disjoint intervals**.
 
 ### **Mathematical Formulation**
 We define a hypothesis class of disjoint intervals as follows:
@@ -19,11 +19,11 @@ For each such set 𝐼, define the corresponding hypothesis function:
 <img width="775" alt="Screenshot 2025-02-11 at 15 04 49" src="https://github.com/user-attachments/assets/38b17e99-462b-470d-beb7-5e0ccae55196" />
 
 The hypothesis class ℋₖ consists of all possible such hypotheses:
-ℋₖ = \{ ℎₗ | I = \{[𝓁₁, 𝓊₁], ..., [𝓁ₖ, 𝓊ₖ]\}, 0 ≤ 𝓁₁ ≤ 𝓊₁ ≤ 𝓁₂ ≤ 𝓊₂ ≤ ... ≤ 𝓊ₖ ≤ 1 \}
+ℋₖ = \{ ℎₗ | I = \{[𝓁₁, 𝓊₁], ..., [𝓁ₖ, 𝓊ₖ]\}, 𝟢 ≤ 𝓁₁ ≤ 𝓊₁ ≤ 𝓁₂ ≤ 𝓊₂ ≤ ... ≤ 𝓊ₖ ≤ 𝟣 \}
 
 We are given a labeled sample of size n:
  (𝑥₁, 𝑦₁), ..., (𝑥ₙ, 𝑦ₙ)
-where the points xᵢ are sorted in increasing order:  0 ≤ 𝑥₁ < 𝑥₂ < ... < 𝑥ₙ ≤ 1.
+where the points xᵢ are sorted in increasing order:  𝟢 ≤ 𝑥₁ < 𝑥₂ < ... < 𝑥ₙ ≤ 𝟣.
 
 ---
 
