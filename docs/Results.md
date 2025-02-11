@@ -12,6 +12,7 @@ We define a hypothesis class of disjoint intervals as follows:
 Let 𝐼 be a set of  𝑘 disjoint intervals:
 𝐼 = \{[𝓁₁, 𝓊₁], [𝓁₂, 𝓊₂], ..., [𝓁ₖ, 𝓊ₖ]\}
 where the intervals are ordered such that:
+
 0 ≤ 𝓁₁ ≤ 𝓊₁ ≤ 𝓁₂ ≤ 𝓊₂ ≤ ... ≤ 𝓊ₖ ≤ 1
 
 For each such set 𝐼, define the corresponding hypothesis function:
