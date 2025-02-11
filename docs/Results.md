@@ -38,13 +38,12 @@ We assume the true distribution  𝑃[𝑥,𝑦] = 𝑃[𝑦|𝑥]∙𝑃[𝑥] 
 
 ### **Solution**
 For ℎ ∊ ℋ₁₀, the error is computed as:
+<img width="576" alt="Screenshot 2025-02-11 at 16 07 23" src="https://github.com/user-attachments/assets/e99bebb4-abae-4fcd-9b0b-4e4e4ef5b24d" />
 
-  𝑒ₚ(ℎ) = 𝔼₍ₓ,ᵧ₎ \sim P} \left[ \Delta_{zo}(h(X),Y) \right] = \sum_{(X,Y) \in \mathcal{X} \times \mathcal{Y}} P(X,Y) \Delta_{zo}(h(X),Y)
-  
 Since 𝑋 is uniformly distributed over [0,1], we use 𝑃(𝑋,𝑌) = 𝑃(𝑌|𝑋)𝑃(𝑋) to rewrite:
-\[
-  𝑒ₚ(ℎ) = \int_0^1 P[Y=1|x] \Delta_{zo}(h(X),1)dx + \int_0^1 P[Y=0|x] \Delta_{zo}(ℎ(X),0)dx
-\]
+
+<img width="619" alt="Screenshot 2025-02-11 at 16 08 00" src="https://github.com/user-attachments/assets/c877edb5-a76d-4381-8a2d-724870648204" />
+
 We focus only on cases where Δ𝑧ₒ ≠ 0 , meaning incorrect predictions:
 - I₁: Intervals where ℎ(𝑋)=1 and 𝑃(𝑌=1|𝑋) = 0.8 \) (no error, ignored)
 - I₂: Intervals where ℎ(𝑋)=1 and 𝑃(𝑌=1|𝑋) = 0.1 \) (error occurs)
@@ -52,13 +51,11 @@ We focus only on cases where Δ𝑧ₒ ≠ 0 , meaning incorrect predictions:
 - I₄: Intervals where ℎ(𝑋)=0  and 𝑃(𝑌=1|𝑋) = 0.1 \) (no error, ignored)
 
 Thus, the expected error simplifies to:
-\[
-  e_P(h) = \int_{I_2} 0.1dx + \int_{I_3} (1-0.8)dx = 0.1|I_2| + 0.2|I_3|
-\]
+<img width="460" alt="Screenshot 2025-02-11 at 16 08 22" src="https://github.com/user-attachments/assets/137f286c-7ef5-4630-801e-1a3b1f27fa0f" />
+
 To minimize error, we aim to keep I₂ and I₃ as small as possible. One approach is to introduce a small unit 𝜀 > 0 at the interval edges, ensuring exactly 10 disjoint segments:
-\[
-  \min_{n_1, n_2 \in \mathbb{N}} \{ 0.1 n_1 \cdot \varepsilon + 0.2 n_2 \cdot \varepsilon \}
-\]
+<img width="588" alt="Screenshot 2025-02-11 at 16 08 43" src="https://github.com/user-attachments/assets/e9454114-e5eb-426f-822c-ef916e588b8a" />
+
 where:
 - 𝑛₁ is the number of intervals added to the complement of [0,0.2] ∪ [0.4,0.6] ∪ [0.8,1]
 - 𝑛₂ is the number of intervals removed from [0,0.2] ∪ [0.4,0.6] ∪ [0.8,1]
@@ -93,8 +90,8 @@ We draw a sample of size 𝑛 = 1500 and find the best ERM hypothesis for 𝑘 =
 
 ### **Solution & Analysis**
 - In this experiment, we observed that 𝑘⁎ = 9  yielded the smallest empirical error.
-- However, this does not necessarily mean that \( \mathcal{H}_{k^*} \) is the best hypothesis class. This is because it may lead to **overfitting**, where the selected hypothesis is overly complex and fits the training set too closely, capturing unnecessary noise.
-- A hypothesis that generalizes well should have both **low true error** and **low empirical error**. While \( k^* \) minimizes the empirical error, it may not perform well on new data.
+- However, this does not necessarily mean that <img width="36" alt="Screenshot 2025-02-11 at 16 09 26" src="https://github.com/user-attachments/assets/a666b2a8-1748-4854-8a3c-c37e6326464b" /> is the best hypothesis class. This is because it may lead to **overfitting**, where the selected hypothesis is overly complex and fits the training set too closely, capturing unnecessary noise.
+- A hypothesis that generalizes well should have both **low true error** and **low empirical error**. While 𝑘⁎ minimizes the empirical error, it may not perform well on new data.
 - A simpler model with a slightly higher empirical error but a lower true error could be a better choice for generalization.
 
 #### **Graph:**
