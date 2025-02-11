@@ -86,7 +86,7 @@ We implement a function that calculates the true error \( e_P(h_I) \) for a give
 - The **true error remains relatively constant**, with slight fluctuations. This behavior is expected because the true error is an inherent property of the hypothesis and the true distribution \( P \), which do not change with sample size.
 - Overall, we observe the expected trend where **as \( n \) increases, the empirical and true errors converge**, demonstrating the consistency of the ERM algorithm.
 #### **Graph:**
-![Empirial VS true Error](empirialVStrueError.png)
+![Empirial VS true Error](empiricalVStrueError.png)
 
 ---
 
