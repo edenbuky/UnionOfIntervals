@@ -102,5 +102,5 @@ We draw a sample of size \( n = 1500 \) and find the best ERM hypothesis for \( 
 - A simpler model with a slightly higher empirical error but a lower true error could be a better choice for generalization.
 
 #### **Graph:**
-![Empirial and true Error](empirialANDtrueError.png)
+![Empirial and true Error](empiricalANDtrueError.png)
 
