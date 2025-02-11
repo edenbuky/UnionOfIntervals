@@ -15,31 +15,25 @@ where the intervals are ordered such that:
 0 ≤ 𝓁₁ ≤ 𝓊₁ ≤ 𝓁₂ ≤ 𝓊₂ ≤ ... ≤ 𝓊ₖ ≤ 1
 
 For each such set 𝐼, define the corresponding hypothesis function:
-\[ hₗ(x) = \begin{cases} 1, & \text{if } x \in [l_1, u_1] \cup \dots \cup [l_k, u_k] \\ 0, & \text{otherwise} \end{cases} \]
 <img width="775" alt="Screenshot 2025-02-11 at 15 04 49" src="https://github.com/user-attachments/assets/38b17e99-462b-470d-beb7-5e0ccae55196" />
 
-The hypothesis class \( \mathcal{H}_k \) consists of all possible such hypotheses:
+The hypothesis class ℋₖ consists of all possible such hypotheses:
 ℋₖ = \{ hₗ | I = \{[𝓁₁, 𝓊₁], ..., [𝓁ₖ, 𝓊ₖ]\}, 0 ≤ 𝓁₁ ≤ 𝓊₁ ≤ 𝓁₂ ≤ 𝓊₂ ≤ ... ≤ 𝓊ₖ ≤ 1 \}
 
-We are given a labeled sample of size \( n \):
-\[ (x_1, y_1), ..., (x_n, y_n) \]
-where the points \( x_i \) are sorted in increasing order: \( 0 \leq x_1 < x_2 < ... < x_n \leq 1 \).
+We are given a labeled sample of size n:
+ (𝑥₁, 𝑦₁), ..., (𝑥ₙ, 𝑦ₙ)
+where the points xᵢ are sorted in increasing order:  0 ≤ 𝑥₁ < 𝑥₂ < ... < 𝑥ₙ ≤ 1 \).
 
 ---
 
 ## **(a) Hypothesis Selection with Minimum Error**
 
 ### **Problem Statement**
-We assume the true distribution \( P[x, y] = P[y|x] \cdot P[x] \) is given as follows:
-- \( x \) is uniformly distributed over \([0,1]\).
-- The conditional probability \( P[y=1|x] \) is defined as:
-  \[
-  P[y=1|x] = \begin{cases} 
-  0.8, & \text{if } x \in [0,0.2] \cup [0.4,0.6] \cup [0.8,1] \\
-  0.1, & \text{if } x \in (0.2,0.4) \cup (0.6,0.8)
-  \end{cases}
-  \]
-- Since \( P[y=0|x] = 1 - P[y=1|x] \), we can compute the exact error \( e_P(h) \) for any hypothesis \( h \in \mathcal{H}_k \).
+We assume the true distribution  𝑃[𝑥,𝑦] = 𝑃[𝑦|𝑥]∙𝑃[𝑥] is given as follows:
+- 𝑥 is uniformly distributed over [0,1].
+- The conditional probability 𝑃[𝑦=1|𝑥] is defined as:
+<img width="741" alt="Screenshot 2025-02-11 at 15 15 29" src="https://github.com/user-attachments/assets/bf4999d3-b2c9-424e-857a-9e852752e064" />
+- Since 𝑃[𝑦=0|𝑥] = 1 - 𝑃[𝑦=1|𝑥] \), we can compute the exact error 𝑒ₚ(ℎ) for any hypothesis ℎ∊ℋₖ \).
 
 ### **Solution**
 For \( h \in \mathcal{H}_{10} \), the error is computed as:
