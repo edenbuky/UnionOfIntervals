@@ -85,8 +85,8 @@ We implement a function that calculates the true error \( e_P(h_I) \) for a give
 - The **empirical error** increases as \( n \) grows, but its **rate of increase slows down**, which aligns with theoretical expectations. A **larger sample size provides more information about the true distribution**, allowing for a better hypothesis selection.
 - The **true error remains relatively constant**, with slight fluctuations. This behavior is expected because the true error is an inherent property of the hypothesis and the true distribution \( P \), which do not change with sample size.
 - Overall, we observe the expected trend where **as \( n \) increases, the empirical and true errors converge**, demonstrating the consistency of the ERM algorithm.
-
-_(Graph to be added here)_
+#### **Graph:**
+![Empirial VS true Error](empirialVStrueError.png)
 
 ---
 
@@ -101,7 +101,6 @@ We draw a sample of size \( n = 1500 \) and find the best ERM hypothesis for \( 
 - A hypothesis that generalizes well should have both **low true error** and **low empirical error**. While \( k^* \) minimizes the empirical error, it may not perform well on new data.
 - A simpler model with a slightly higher empirical error but a lower true error could be a better choice for generalization.
 
----
-
-_(Next, you can provide part (d) and I will continue adding to the document!)_
+#### **Graph:**
+![Empirial and true Error](empirialANDtrueError.png)
 
