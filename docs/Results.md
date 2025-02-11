@@ -68,7 +68,7 @@ This ensures the best hypothesis  ℎ ∊ ℋ₁₀ has the smallest possible cl
 ## **(b) Empirical and True Error Analysis**
 
 ### **Problem Statement**
-We implement a function that calculates the true error \( e_P(ℎₗ) \) for a given list of intervals 𝐼 . Then, for 𝑘 = 3  and various values of 𝑛 (10, 15, 20, ..., 100), we conduct the following experiment 𝑇 = 100 times:
+We implement a function that calculates the true error 𝑒ₚ(ℎₗ) for a given list of intervals 𝐼 . Then, for 𝑘 = 3  and various values of 𝑛 (10, 15, 20, ..., 100), we conduct the following experiment 𝑇 = 100 times:
 1. Draw a sample of size 𝑛 and run the **ERM algorithm**.
 2. Calculate the **empirical error** for the returned hypothesis.
 3. Calculate the **true error** for the returned hypothesis.
