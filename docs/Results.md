@@ -13,7 +13,7 @@ Let 𝐼 be a set of  𝑘 disjoint intervals:
 𝐼 = \{[𝓁₁, 𝓊₁], [𝓁₂, 𝓊₂], ..., [𝓁ₖ, 𝓊ₖ]\}
 where the intervals are ordered such that:
 
-0 ≤ 𝓁₁ ≤ 𝓊₁ ≤ 𝓁₂ ≤ 𝓊₂ ≤ ... ≤ 𝓊ₖ ≤ 1
+𝟢 ≤ 𝓁₁ ≤ 𝓊₁ ≤ 𝓁₂ ≤ 𝓊₂ ≤ ... ≤ 𝓊ₖ ≤ 𝟣
 
 For each such set 𝐼, define the corresponding hypothesis function:
 <img width="775" alt="Screenshot 2025-02-11 at 15 04 49" src="https://github.com/user-attachments/assets/38b17e99-462b-470d-beb7-5e0ccae55196" />
@@ -31,25 +31,25 @@ where the points xᵢ are sorted in increasing order:  𝟢 ≤ 𝑥₁ < 𝑥�
 
 ### **Problem Statement**
 We assume the true distribution  𝑃[𝑥,𝑦] = 𝑃[𝑦|𝑥]∙𝑃[𝑥] is given as follows:
-- 𝑥 is uniformly distributed over [0,1].
-- The conditional probability 𝑃[𝑦=1|𝑥] is defined as:
+- 𝑥 is uniformly distributed over [𝟢,𝟣].
+- The conditional probability 𝑃\[𝑦 = 𝟣|𝑥\] is defined as:
 <img width="741" alt="Screenshot 2025-02-11 at 15 15 29" src="https://github.com/user-attachments/assets/bf4999d3-b2c9-424e-857a-9e852752e064" />
 
-- Since 𝑃[𝑦=0|𝑥] = 1 - 𝑃[𝑦=1|𝑥] \), we can compute the exact error 𝑒ₚ(ℎ) for any hypothesis ℎ∊ℋₖ.
+- Since 𝑃\[𝑦 = 𝟢|𝑥\] = 𝟣 - 𝑃\[𝑦 = 𝟣|𝑥\], we can compute the exact error 𝑒ₚ(ℎ) for any hypothesis ℎ∊ℋₖ.
 
 ### **Solution**
 For ℎ ∊ ℋ₁₀, the error is computed as:
 <img width="576" alt="Screenshot 2025-02-11 at 16 07 23" src="https://github.com/user-attachments/assets/e99bebb4-abae-4fcd-9b0b-4e4e4ef5b24d" />
 
-Since 𝑋 is uniformly distributed over [0,1], we use 𝑃(𝑋,𝑌) = 𝑃(𝑌|𝑋)𝑃(𝑋) to rewrite:
+Since 𝑋 is uniformly distributed over [𝟢,𝟣], we use 𝑃\(𝑋,𝑌\) = 𝑃\(𝑌|𝑋\)𝑃\(𝑋\) to rewrite:
 
 <img width="619" alt="Screenshot 2025-02-11 at 16 08 00" src="https://github.com/user-attachments/assets/c877edb5-a76d-4381-8a2d-724870648204" />
 
 We focus only on cases where Δ𝑧ₒ ≠ 0 , meaning incorrect predictions:
-- I₁: Intervals where ℎ(𝑋)=1 and 𝑃(𝑌=1|𝑋) = 0.8 \) (no error, ignored)
-- I₂: Intervals where ℎ(𝑋)=1 and 𝑃(𝑌=1|𝑋) = 0.1 \) (error occurs)
-- I₃: Intervals where ℎ(𝑋)=0 and 𝑃(𝑌=1|𝑋) = 0.8 \) (error occurs)
-- I₄: Intervals where ℎ(𝑋)=0  and 𝑃(𝑌=1|𝑋) = 0.1 \) (no error, ignored)
+- I₁: Intervals where ℎ(𝑋)=𝟣 and 𝑃\(𝑌=𝟣|𝑋\) = 0.8 (no error, ignored)
+- I₂: Intervals where ℎ(𝑋)=𝟣 and 𝑃\(𝑌=𝟣|𝑋\) = 0.1 (error occurs)
+- I₃: Intervals where ℎ(𝑋)=𝟢 and 𝑃\(𝑌=𝟣|𝑋\) = 0.8 (error occurs)
+- I₄: Intervals where ℎ(𝑋)=𝟢  and 𝑃\(𝑌=𝟣|𝑋\) = 0.1 (no error, ignored)
 
 Thus, the expected error simplifies to:
 <img width="460" alt="Screenshot 2025-02-11 at 16 08 22" src="https://github.com/user-attachments/assets/137f286c-7ef5-4630-801e-1a3b1f27fa0f" />
