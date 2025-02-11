@@ -23,7 +23,7 @@ The hypothesis class ℋₖ consists of all possible such hypotheses:
 
 We are given a labeled sample of size n:
  (𝑥₁, 𝑦₁), ..., (𝑥ₙ, 𝑦ₙ)
-where the points xᵢ are sorted in increasing order:  0 ≤ 𝑥₁ < 𝑥₂ < ... < 𝑥ₙ ≤ 1 \).
+where the points xᵢ are sorted in increasing order:  0 ≤ 𝑥₁ < 𝑥₂ < ... < 𝑥ₙ ≤ 1.
 
 ---
 
