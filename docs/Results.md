@@ -18,7 +18,7 @@ For each such set 𝐼, define the corresponding hypothesis function:
 <img width="775" alt="Screenshot 2025-02-11 at 15 04 49" src="https://github.com/user-attachments/assets/38b17e99-462b-470d-beb7-5e0ccae55196" />
 
 The hypothesis class ℋₖ consists of all possible such hypotheses:
-ℋₖ = \{ hₗ | I = \{[𝓁₁, 𝓊₁], ..., [𝓁ₖ, 𝓊ₖ]\}, 0 ≤ 𝓁₁ ≤ 𝓊₁ ≤ 𝓁₂ ≤ 𝓊₂ ≤ ... ≤ 𝓊ₖ ≤ 1 \}
+ℋₖ = \{ ℎₗ | I = \{[𝓁₁, 𝓊₁], ..., [𝓁ₖ, 𝓊ₖ]\}, 0 ≤ 𝓁₁ ≤ 𝓊₁ ≤ 𝓁₂ ≤ 𝓊₂ ≤ ... ≤ 𝓊ₖ ≤ 1 \}
 
 We are given a labeled sample of size n:
  (𝑥₁, 𝑦₁), ..., (𝑥ₙ, 𝑦ₙ)
@@ -33,65 +33,66 @@ We assume the true distribution  𝑃[𝑥,𝑦] = 𝑃[𝑦|𝑥]∙𝑃[𝑥] 
 - 𝑥 is uniformly distributed over [0,1].
 - The conditional probability 𝑃[𝑦=1|𝑥] is defined as:
 <img width="741" alt="Screenshot 2025-02-11 at 15 15 29" src="https://github.com/user-attachments/assets/bf4999d3-b2c9-424e-857a-9e852752e064" />
-- Since 𝑃[𝑦=0|𝑥] = 1 - 𝑃[𝑦=1|𝑥] \), we can compute the exact error 𝑒ₚ(ℎ) for any hypothesis ℎ∊ℋₖ \).
+
+- Since 𝑃[𝑦=0|𝑥] = 1 - 𝑃[𝑦=1|𝑥] \), we can compute the exact error 𝑒ₚ(ℎ) for any hypothesis ℎ∊ℋₖ.
 
 ### **Solution**
-For \( h \in \mathcal{H}_{10} \), the error is computed as:
+For ℎ ∊ ℋ₁₀, the error is computed as:
+
+  𝑒ₚ(ℎ) = 𝔼₍ₓ,ᵧ₎ \sim P} \left[ \Delta_{zo}(h(X),Y) \right] = \sum_{(X,Y) \in \mathcal{X} \times \mathcal{Y}} P(X,Y) \Delta_{zo}(h(X),Y)
+  
+Since 𝑋 is uniformly distributed over [0,1], we use 𝑃(𝑋,𝑌) = 𝑃(𝑌|𝑋)𝑃(𝑋) to rewrite:
 \[
-  e_P(h) = \mathbb{E}_{(X,Y) \sim P} \left[ \Delta_{zo}(h(X),Y) \right] = \sum_{(X,Y) \in \mathcal{X} \times \mathcal{Y}} P(X,Y) \Delta_{zo}(h(X),Y)
+  𝑒ₚ(ℎ) = \int_0^1 P[Y=1|x] \Delta_{zo}(h(X),1)dx + \int_0^1 P[Y=0|x] \Delta_{zo}(ℎ(X),0)dx
 \]
-Since \( X \) is uniformly distributed over \([0,1]\), we use \( P(X,Y) = P(Y|X)P(X) \) to rewrite:
-\[
-  e_P(h) = \int_0^1 P[Y=1|x] \Delta_{zo}(h(X),1)dx + \int_0^1 P[Y=0|x] \Delta_{zo}(h(X),0)dx
-\]
-We focus only on cases where \( \Delta_{zo} \neq 0 \), meaning incorrect predictions:
-- \( I_1 \): Intervals where \( h(X)=1 \) and \( P(Y=1|X) = 0.8 \) (no error, ignored)
-- \( I_2 \): Intervals where \( h(X)=1 \) and \( P(Y=1|X) = 0.1 \) (error occurs)
-- \( I_3 \): Intervals where \( h(X)=0 \) and \( P(Y=1|X) = 0.8 \) (error occurs)
-- \( I_4 \): Intervals where \( h(X)=0 \) and \( P(Y=1|X) = 0.1 \) (no error, ignored)
+We focus only on cases where Δ𝑧ₒ ≠ 0 , meaning incorrect predictions:
+- I₁: Intervals where ℎ(𝑋)=1 and 𝑃(𝑌=1|𝑋) = 0.8 \) (no error, ignored)
+- I₂: Intervals where ℎ(𝑋)=1 and 𝑃(𝑌=1|𝑋) = 0.1 \) (error occurs)
+- I₃: Intervals where ℎ(𝑋)=0 and 𝑃(𝑌=1|𝑋) = 0.8 \) (error occurs)
+- I₄: Intervals where ℎ(𝑋)=0  and 𝑃(𝑌=1|𝑋) = 0.1 \) (no error, ignored)
 
 Thus, the expected error simplifies to:
 \[
   e_P(h) = \int_{I_2} 0.1dx + \int_{I_3} (1-0.8)dx = 0.1|I_2| + 0.2|I_3|
 \]
-To minimize error, we aim to keep \( I_2 \) and \( I_3 \) as small as possible. One approach is to introduce a small unit \( \varepsilon > 0 \) at the interval edges, ensuring exactly 10 disjoint segments:
+To minimize error, we aim to keep I₂ and I₃ as small as possible. One approach is to introduce a small unit 𝜀 > 0 at the interval edges, ensuring exactly 10 disjoint segments:
 \[
   \min_{n_1, n_2 \in \mathbb{N}} \{ 0.1 n_1 \cdot \varepsilon + 0.2 n_2 \cdot \varepsilon \}
 \]
 where:
-- \( n_1 \) is the number of intervals added to the complement of \([0,0.2] \cup [0.4,0.6] \cup [0.8,1]\)
-- \( n_2 \) is the number of intervals removed from \([0,0.2] \cup [0.4,0.6] \cup [0.8,1]\)
+- 𝑛₁ is the number of intervals added to the complement of [0,0.2] ∪ [0.4,0.6] ∪ [0.8,1]
+- 𝑛₂ is the number of intervals removed from [0,0.2] ∪ [0.4,0.6] ∪ [0.8,1]
 
-This ensures the best hypothesis \( h \in \mathcal{H}_{10} \) has the smallest possible classification error.
+This ensures the best hypothesis  ℎ ∊ ℋ₁₀ has the smallest possible classification error.
 
 ---
 
 ## **(b) Empirical and True Error Analysis**
 
 ### **Problem Statement**
-We implement a function that calculates the true error \( e_P(h_I) \) for a given list of intervals \( I \). Then, for \( k = 3 \) and various values of \( n \) (10, 15, 20, ..., 100), we conduct the following experiment \( T = 100 \) times:
-1. Draw a sample of size \( n \) and run the **ERM algorithm**.
+We implement a function that calculates the true error \( e_P(ℎₗ) \) for a given list of intervals 𝐼 . Then, for 𝑘 = 3  and various values of 𝑛 (10, 15, 20, ..., 100), we conduct the following experiment 𝑇 = 100 times:
+1. Draw a sample of size 𝑛 and run the **ERM algorithm**.
 2. Calculate the **empirical error** for the returned hypothesis.
 3. Calculate the **true error** for the returned hypothesis.
-4. Plot the empirical and true errors, averaged across the \( T \) runs, as a function of \( n \).
-5. Discuss the results: Do the empirical and true errors decrease or increase with \( n \)? Why?
+4. Plot the empirical and true errors, averaged across the 𝑇 runs, as a function of 𝑛.
+5. Discuss the results: Do the empirical and true errors decrease or increase with 𝑛? Why?
 
 ### **Solution & Analysis**
-- The **empirical error** increases as \( n \) grows, but its **rate of increase slows down**, which aligns with theoretical expectations. A **larger sample size provides more information about the true distribution**, allowing for a better hypothesis selection.
-- The **true error remains relatively constant**, with slight fluctuations. This behavior is expected because the true error is an inherent property of the hypothesis and the true distribution \( P \), which do not change with sample size.
-- Overall, we observe the expected trend where **as \( n \) increases, the empirical and true errors converge**, demonstrating the consistency of the ERM algorithm.
+- The **empirical error** increases as 𝑛 grows, but its **rate of increase slows down**, which aligns with theoretical expectations. A **larger sample size provides more information about the true distribution**, allowing for a better hypothesis selection.
+- The **true error remains relatively constant**, with slight fluctuations. This behavior is expected because the true error is an inherent property of the hypothesis and the true distribution 𝑃, which do not change with sample size.
+- Overall, we observe the expected trend where **as 𝒏 increases, the empirical and true errors converge**, demonstrating the consistency of the ERM algorithm.
 #### **Graph:**
 ![Empirial VS true Error](empiricalVStrueError.png)
 
 ---
 
-## **(c) Error Behavior as a Function of \( k \)**
+## **(c) Error Behavior as a Function of 𝒌**
 
 ### **Problem Statement**
-We draw a sample of size \( n = 1500 \) and find the best ERM hypothesis for \( k = 1, 2, ..., 10 \). We then plot the empirical and true errors as a function of \( k \) and analyze how the error behaves. We also define \( k^* \) to be the \( k \) with the smallest empirical error for ERM and discuss whether this makes \( k^* \) a good choice.
+We draw a sample of size 𝑛 = 1500 and find the best ERM hypothesis for 𝑘 = 1, 2, ..., 10. We then plot the empirical and true errors as a function of 𝑘 and analyze how the error behaves. We also define 𝑘⁎ to be the 𝑘 with the smallest empirical error for ERM and discuss whether this makes 𝑘* a good choice.
 
 ### **Solution & Analysis**
-- In this experiment, we observed that \( k^* = 9 \) yielded the smallest empirical error.
+- In this experiment, we observed that 𝑘⁎ = 9  yielded the smallest empirical error.
 - However, this does not necessarily mean that \( \mathcal{H}_{k^*} \) is the best hypothesis class. This is because it may lead to **overfitting**, where the selected hypothesis is overly complex and fits the training set too closely, capturing unnecessary noise.
 - A hypothesis that generalizes well should have both **low true error** and **low empirical error**. While \( k^* \) minimizes the empirical error, it may not perform well on new data.
 - A simpler model with a slightly higher empirical error but a lower true error could be a better choice for generalization.
