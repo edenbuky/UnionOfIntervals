@@ -86,12 +86,12 @@ We implement a function that calculates the true error \( e_P(ℎₗ) \) for a g
 ## **(c) Error Behavior as a Function of 𝒌**
 
 ### **Problem Statement**
-We draw a sample of size 𝑛 = 1500 and find the best ERM hypothesis for 𝑘 = 1, 2, ..., 10. We then plot the empirical and true errors as a function of 𝑘 and analyze how the error behaves. We also define 𝑘⁎ to be the 𝑘 with the smallest empirical error for ERM and discuss whether this makes 𝑘* a good choice.
+We draw a sample of size 𝑛 = 1500 and find the best ERM hypothesis for 𝑘 = 1, 2, ..., 10. We then plot the empirical and true errors as a function of 𝑘 and analyze how the error behaves. We also define 𝑘* to be the 𝑘 with the smallest empirical error for ERM and discuss whether this makes 𝑘* a good choice.
 
 ### **Solution & Analysis**
-- In this experiment, we observed that 𝑘⁎ = 9  yielded the smallest empirical error.
+- In this experiment, we observed that 𝑘* = 9  yielded the smallest empirical error.
 - However, this does not necessarily mean that <img width="36" alt="Screenshot 2025-02-11 at 16 09 26" src="https://github.com/user-attachments/assets/a666b2a8-1748-4854-8a3c-c37e6326464b" /> is the best hypothesis class. This is because it may lead to **overfitting**, where the selected hypothesis is overly complex and fits the training set too closely, capturing unnecessary noise.
-- A hypothesis that generalizes well should have both **low true error** and **low empirical error**. While 𝑘⁎ minimizes the empirical error, it may not perform well on new data.
+- A hypothesis that generalizes well should have both **low true error** and **low empirical error**. While 𝑘* minimizes the empirical error, it may not perform well on new data.
 - A simpler model with a slightly higher empirical error but a lower true error could be a better choice for generalization.
 
 #### **Graph:**
