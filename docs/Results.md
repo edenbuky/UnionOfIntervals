@@ -4,15 +4,13 @@
 
 In this assignment, we study the hypothesis class of a **finite union of disjoint intervals** and analyze the properties of the **Empirical Risk Minimization (ERM) algorithm** for this class.
 
-Let the sample space be ** \( \mathcal{X} = [0,1] \) ** and consider a **binary classification problem**, where \( \mathcal{Y} = \{0,1\} \). We aim to learn using a hypothesis class consisting of **\( k \) disjoint intervals**.
+Let the sample space be **\( \mathcal{X} = [0,1] \)** and consider a **binary classification problem**, where \( \mathcal{Y} = \{0,1\} \). We aim to learn using a hypothesis class consisting of **\( k \) disjoint intervals**.
 
 ### **Mathematical Formulation**
 We define a hypothesis class of disjoint intervals as follows:
 
 Let \( I \) be a set of \( k \) disjoint intervals:
-
-$ I = \{[l_1, u_1], [l_2, u_2], ..., [l_k, u_k]\} $
-
+\[ I = \{[l_1, u_1], [l_2, u_2], ..., [l_k, u_k]\} \]
 where the intervals are ordered such that:
 \[ 0 \leq l_1 \leq u_1 \leq l_2 \leq u_2 \leq ... \leq u_k \leq 1 \]
 
@@ -25,6 +23,51 @@ The hypothesis class \( \mathcal{H}_k \) consists of all possible such hypothese
 We are given a labeled sample of size \( n \):
 \[ (x_1, y_1), ..., (x_n, y_n) \]
 where the points \( x_i \) are sorted in increasing order: \( 0 \leq x_1 < x_2 < ... < x_n \leq 1 \).
+
+---
+
+## **(a) Hypothesis Selection with Minimum Error**
+
+### **Problem Statement**
+We assume the true distribution \( P[x, y] = P[y|x] \cdot P[x] \) is given as follows:
+- \( x \) is uniformly distributed over \([0,1]\).
+- The conditional probability \( P[y=1|x] \) is defined as:
+  \[
+  P[y=1|x] = \begin{cases} 
+  0.8, & \text{if } x \in [0,0.2] \cup [0.4,0.6] \cup [0.8,1] \\
+  0.1, & \text{if } x \in (0.2,0.4) \cup (0.6,0.8)
+  \end{cases}
+  \]
+- Since \( P[y=0|x] = 1 - P[y=1|x] \), we can compute the exact error \( e_P(h) \) for any hypothesis \( h \in \mathcal{H}_k \).
+
+### **Solution**
+For \( h \in \mathcal{H}_{10} \), the error is computed as:
+\[
+  e_P(h) = \mathbb{E}_{(X,Y) \sim P} \left[ \Delta_{zo}(h(X),Y) \right] = \sum_{(X,Y) \in \mathcal{X} \times \mathcal{Y}} P(X,Y) \Delta_{zo}(h(X),Y)
+\]
+Since \( X \) is uniformly distributed over \([0,1]\), we use \( P(X,Y) = P(Y|X)P(X) \) to rewrite:
+\[
+  e_P(h) = \int_0^1 P[Y=1|x] \Delta_{zo}(h(X),1)dx + \int_0^1 P[Y=0|x] \Delta_{zo}(h(X),0)dx
+\]
+We focus only on cases where \( \Delta_{zo} \neq 0 \), meaning incorrect predictions:
+- \( I_1 \): Intervals where \( h(X)=1 \) and \( P(Y=1|X) = 0.8 \) (no error, ignored)
+- \( I_2 \): Intervals where \( h(X)=1 \) and \( P(Y=1|X) = 0.1 \) (error occurs)
+- \( I_3 \): Intervals where \( h(X)=0 \) and \( P(Y=1|X) = 0.8 \) (error occurs)
+- \( I_4 \): Intervals where \( h(X)=0 \) and \( P(Y=1|X) = 0.1 \) (no error, ignored)
+
+Thus, the expected error simplifies to:
+\[
+  e_P(h) = \int_{I_2} 0.1dx + \int_{I_3} (1-0.8)dx = 0.1|I_2| + 0.2|I_3|
+\]
+To minimize error, we aim to keep \( I_2 \) and \( I_3 \) as small as possible. One approach is to introduce a small unit \( \varepsilon > 0 \) at the interval edges, ensuring exactly 10 disjoint segments:
+\[
+  \min_{n_1, n_2 \in \mathbb{N}} \{ 0.1 n_1 \cdot \varepsilon + 0.2 n_2 \cdot \varepsilon \}
+\]
+where:
+- \( n_1 \) is the number of intervals added to the complement of \([0,0.2] \cup [0.4,0.6] \cup [0.8,1]\)
+- \( n_2 \) is the number of intervals removed from \([0,0.2] \cup [0.4,0.6] \cup [0.8,1]\)
+
+This ensures the best hypothesis \( h \in \mathcal{H}_{10} \) has the smallest possible classification error.
 
 ---
 
@@ -43,6 +86,22 @@ We implement a function that calculates the true error \( e_P(h_I) \) for a give
 - The **true error remains relatively constant**, with slight fluctuations. This behavior is expected because the true error is an inherent property of the hypothesis and the true distribution \( P \), which do not change with sample size.
 - Overall, we observe the expected trend where **as \( n \) increases, the empirical and true errors converge**, demonstrating the consistency of the ERM algorithm.
 
+_(Graph to be added here)_
+
 ---
 
+## **(c) Error Behavior as a Function of \( k \)**
+
+### **Problem Statement**
+We draw a sample of size \( n = 1500 \) and find the best ERM hypothesis for \( k = 1, 2, ..., 10 \). We then plot the empirical and true errors as a function of \( k \) and analyze how the error behaves. We also define \( k^* \) to be the \( k \) with the smallest empirical error for ERM and discuss whether this makes \( k^* \) a good choice.
+
+### **Solution & Analysis**
+- In this experiment, we observed that \( k^* = 9 \) yielded the smallest empirical error.
+- However, this does not necessarily mean that \( \mathcal{H}_{k^*} \) is the best hypothesis class. This is because it may lead to **overfitting**, where the selected hypothesis is overly complex and fits the training set too closely, capturing unnecessary noise.
+- A hypothesis that generalizes well should have both **low true error** and **low empirical error**. While \( k^* \) minimizes the empirical error, it may not perform well on new data.
+- A simpler model with a slightly higher empirical error but a lower true error could be a better choice for generalization.
+
+---
+
+_(Next, you can provide part (d) and I will continue adding to the document!)_
 
